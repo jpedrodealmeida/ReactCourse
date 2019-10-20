@@ -28,8 +28,12 @@ class MyForm extends Component{
     }
 
     handleChange(event){
+        const element = event.target
+        const value = element.type === 'checkbox' ? element.checked : element.value
+        const name = element.name;
+
         this.setState({
-            name: event.target.value
+            [name]: value
         })
     }
     render(){
@@ -48,7 +52,7 @@ class MyForm extends Component{
                 <div>
                 <label>
                     Fruit:
-                    <select value={state.fruit}>
+                    <select value={state.fruit} name="fruit" onChange={handleChange}>
                         {this.fruits.map(fruit => <option value={fruit.value}>{fruit.name}</option>)}
                     </select>
                 </label>
@@ -57,10 +61,20 @@ class MyForm extends Component{
                 <div>
                 <label>
                     Message:
-                    <textarea value={state.message} />
+                    <textarea value={state.message} name="message" onChange={handleChange}/>
                 </label>
                 </div>
                 
+                <h1>Show Results</h1>
+                <div>
+                    Nome: {state.name}
+                </div>
+                <div>
+                    Fruit: {state.fruit}
+                </div>
+                <div>
+                    Message: {state.message}
+                </div>
                 
             </form>
         );
